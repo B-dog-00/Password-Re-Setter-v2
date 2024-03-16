@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
+    "google-auth-library": "^9.7.0",
+    "next": "14.1.3",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.1.3"
+    "react-dom": "^18"
   }
 }
