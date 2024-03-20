@@ -1,8 +1,5 @@
-// pages/api/updatePassword.js or pages/[your_page].js
-
 import {GoogleAuth} from 'google-auth-library';
 
-// This is a makeshift approach; place this inside [your_page].js for testing
 export default async function updatePasswordHandler(req, res) {
   // Only proceed for POST requests
   if (req.method !== 'POST') {
@@ -12,12 +9,26 @@ export default async function updatePasswordHandler(req, res) {
 
   const { emailAddress, newPassword } = req.body;
 
-  // For demonstration, let's assume you have a secure way to handle keyFilePath
-  const keyFilePath = './src/pages/ab.json';
+  // Construct credentials object from environment variables
+  const credentials = {
+    type: process.env.GOOGLE_TYPE,
+    project_id: process.env.GOOGLE_PROJECT_ID,
+    private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
+    // Replace newline placeholders in private key with actual newline characters
+    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    client_email: process.env.GOOGLE_CLIENT_EMAIL,
+    client_id: process.env.GOOGLE_CLIENT_ID,
+    auth_uri: process.env.GOOGLE_AUTH_URI,
+    token_uri: process.env.GOOGLE_TOKEN_URI,
+    auth_provider_x509_cert_url: process.env.GOOGLE_AUTH_PROVIDER_X509_CERT_URL,
+    client_x509_cert_url: process.env.GOOGLE_CLIENT_X509_CERT_URL,
+    universe_domain: process.env.GOOGLE_UNIVERSE_DOMAIN, // Only if this field is needed
+  };
+
   const targetAudience = 'https://us-central1-ab-automations-402216.cloudfunctions.net/updatePassword';
 
   const auth = new GoogleAuth({
-    keyFilename: keyFilePath,
+    credentials,
   });
 
   try {
@@ -29,7 +40,7 @@ export default async function updatePasswordHandler(req, res) {
       headers: {
           'Content-Type': 'application/json',
       },
-  });
+    });
 
     if (response.status === 200) {
       return res.status(200).json({ message: 'Password updated successfully' });

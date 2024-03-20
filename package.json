@@ -1,5 +1,5 @@
 {
-  "name": "new-password-resetter-v2",
+  "name": "new-password-resetter",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,8 +9,11 @@
     "start": "next start",
     "lint": "next lint",
     "predeploy": "next build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d out --nojekyll"
   },
+  
+  "homepage": "https://b-dog-00.github.io/Password-Re-Setter-v2/",
+
   "dependencies": {
     "google-auth-library": "^9.7.0",
     "next": "14.1.3",
