@@ -9,12 +9,12 @@ const PasswordResetForm = () => {
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [message, setMessage] = useState('');
 
+    const handleSignInClick = () => setFormState('signIn');
+    const handleSignUpClick = () => setFormState('signUp');
+    const handleLostPasswordClick = () => setFormState('lostPassword');
+
     const handleSubmit = async (event) => {
       event.preventDefault();
-  
-      const handleSignInClick = () => setFormState('signIn');
-      const handleSignUpClick = () => setFormState('signUp');
-      const handleLostPasswordClick = () => setFormState('lostPassword');
   
       const formData = {
           emailAddress: email,
@@ -43,10 +43,6 @@ const PasswordResetForm = () => {
           setMessage(`Error: ${error.toString()}`);
       }
   };
-  
-
-    const handleLostPasswordClick = () => setFormState('lostPassword');
-
 
     return (
       <>
@@ -252,10 +248,10 @@ input:focus, button:focus, a:focus {
                     )}
                     <div className="btn-field">
                         {formState !== 'signIn' && (
-                            <button type="button" onClick={() => setFormState('signIn')}>Sign In</button>
+                            <button type="button" onClick={handleSignInClick}>Sign In</button>
                         )}
                         {formState !== 'signUp' && (
-                            <button type="button" onClick={() => setFormState('signUp')}>Sign Up</button>
+                            <button type="button" onClick={handleSignUpClick}>Sign Up</button>
                         )}
                         {formState !== 'lostPassword' && (
                             <button type="button" onClick={handleLostPasswordClick}>Lost Password</button>
